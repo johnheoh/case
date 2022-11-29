@@ -1,0 +1,58 @@
+
+<body>
+  <h3>이스라엘 찬양</h3>
+  <hr>
+  <audio id="audio" src="" controls></audio>
+  <br><br>
+  <select id="select" size="3" onchange="play()">
+    <option value="https://drive.google.com/uc?export=view&id=1-Ov8bI7VXrrE1OVvzPplxQPEgBSx6H2f">I exalt thee</option>
+    <option value="https://drive.google.com/uc?export=view&id=16quhKrik8VVNZASX_cpYWOZCgfrEgaDX">Thanks to you</option>
+    <option value="https://drive.google.com/uc?export=view&id=1-LAwFk7fxv9MC6nW9BQb11zExGoR-nrH">Great and Marvelous</option>
+  </select>
+  <button id="play" onclick="play()">play</button>
+  <button id="play" onclick="next()">next</button>
+
+  <script>
+    var audio = document.getElementById("audio");
+    var sel = document.getElementById("select");
+    var len = sel.length;
+    var idx = 0;
+    var playon = false;
+    
+    audio.onended = function (e) {
+      next();
+    }
+    
+    function play() {
+      if (sel.selectedIndex < 0) {
+          audio.src = sel.options[idx].value;
+          playon = true;
+      } else {
+          audio.src = sel.options[sel.selectedIndex].value;
+          idx =sel.selectedIndex;
+          playon = true;
+        }
+      audio.play();
+     }
+    
+    
+       function next() {
+      if (sel.selectedIndex < 0) {
+          if (idx + 1 < len) idx++;
+          else idx = 0;
+          
+          if (playon == false) idx = 0;
+          playon = true;
+      } else {
+          idx++;
+          if (idx >= len) idx = 0;
+          playon = true;
+          sel.selectedIndex = idx;
+      }
+      
+      audio.src = sel.options[idx].value;
+      audio.play();
+
+     }
+  </script>
+</body>
